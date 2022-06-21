@@ -6,8 +6,30 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(billboard)
 library(tidyverse)
+```
+
+```{r}
+x<- wiki_hot_100s |> 
+as_tibble() |> 
+  mutate(year = as.numeric(year))
+
+```
+>Which artist appears the most?
+```{r}
+x |> 
+group_by(artist) |> 
+  summarize(freq = n()) |> 
+  arrange(desc(freq)) |> 
+  filter(freq == 1)  
+```
+
+```{r}
+x |> 
+  group_by(artist) |> 
+  summarize(freq = n()) |> 
+  filter(freq == 1)
 ```
 
